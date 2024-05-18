@@ -1,0 +1,661 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Task Manager API With Node.js",
+        "description": "Task Manager Project Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Task Manager",
+            "description": "API for Task Manager Application system"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "in": "headers",
+            "name": "authorization"
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ],
+    "paths": {
+        "/user/create": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Create new user in the system",
+                "parameters": [
+                    {
+                        "name": "User",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/list": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all users in the system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/show/{userId}": {
+            "parameters": [
+                {
+                    "name": "userId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of user that we want to find",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "summary": "Get a user with a given userId",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UserId is returned",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get authenticated into the system",
+                "parameters": [
+                    {
+                        "name": "Login Details",
+                        "in": "body",
+                        "description": "Login to your account",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User was authenticated",
+                        "schema": {
+                            "$ref": "#/definitions/Login-Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/forgot-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Forget password in the system",
+                "parameters": [
+                    {
+                        "name": "User",
+                        "in": "body",
+                        "description": "User forget password",
+                        "required": "true",
+                        "schema": {
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User forget password",
+                        "schema": {
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/reset-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Forget password in the system",
+                "parameters": [
+                    {
+                        "name": "User",
+                        "in": "body",
+                        "description": "User forget password",
+                        "required": "true",
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "confirm_password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User forget password",
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "confirm_password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+   
+        "/status/create": {
+            "post": {
+                "tags": [
+                    "Status"
+                ],
+                "description": "Create new status in the system",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "body",
+                        "description": "title that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New status is created",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/list": {
+            "get": {
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Get all status in the system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/show/{status_id}": {
+            "parameters": [
+                {
+                    "name": "status_id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of Status that we want to find",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "summary": "Get a status with a given status_id",
+                "tags": [
+                    "Status"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "status_id is returned",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/edit/{status_id}": {
+            "put": {
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Edit a Status",
+                "description": "Make updates on a status by providing the status id",
+                "parameters": [
+                    {
+                        "name": "status_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the status",
+                        "type": "integer",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    },
+                    {
+                        "name": "status updates",
+                        "in": "body",
+                        "required": true,
+                        "description": "status updates to be made",
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "status details",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/delete/{status_id}": {
+            "delete": {
+                "tags": [
+                    "Status"
+                ],
+                "description": "Delete a status by passing the status Id",
+                "parameters": [
+                    {
+                        "name": "status_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of status",
+                        "type": "integer"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Status was deleted successfully"
+                    },
+                    "400": {
+                        "description": "Invalid status provided"
+                    },
+                    "201": {
+                        "description": "Jacket details",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                }
+            }
+        },
+       
+        
+        "/task/create": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create new Task",
+                "description": "Create new Task",
+                "parameters": [
+                    {
+                        "name": "Task",
+                        "in": "body",
+                        "description": "Task that we want to create",
+                        "schema": {
+                            "required": [
+                                "name",
+                                "description",
+                                "priority",
+                                "dueDate"
+                            ],
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                 "priority": {
+                                    "type": "integer"
+                                },
+                                 "dueDate": {
+                                    "type": "string",
+                                     "format": "date",
+                                     "example": "YYYY-MM-DD"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New Task is created",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/list": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get all file types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/show/{id}": {
+            "get": {
+                "summary": "Get a file type with a given fileTypeId",
+                "tags": [
+                    "Task"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fileTypeId is returned",
+                        "schema": {
+                            "$ref": "#/definitions/FileType"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "fileTypeId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of Task that we want to find",
+                    "type": "integer"
+                }
+            ]
+        },
+        "/task/edit/{id}": {
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Edit Task by providing the fileTypeId",
+                "description": "Edit Task by providing the fileTypeId",
+                "parameters": [
+                    {
+                        "name": "fileTypeId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the Task",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "Data",
+                        "in": "body",
+                        "required": true,
+                        "description": "Task updates to be made",
+                        "type": "string",
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "status": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task details Updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/FileType"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Delete a Task by passing the Task Id",
+                "description": "Delete a Task by passing the Task Id",
+                "parameters": [
+                    {
+                        "name": "fileTypeId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of Task",
+                        "type": "integer"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task was deleted successfully"
+                    },
+                    "400": {
+                        "description": "Invalid Task provided"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "email",
+                "password"
+            ],
+         
+            "properties": {
+                "fullname": {
+                    "type": "string"
+                },
+                
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "passwordHash": {
+                        "type": "string",
+                        "format": "password",
+                        "maxLength": 0
+                    }
+                }
+               
+            }
+        },
+        "Login": {
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true,
+                    "default": "testgmail.com"
+                },
+                "password": {
+                    "passwordHash": {
+                        "type": "string",
+                        "format": "password",
+                        "maxLength": 0
+                    },
+                    "default": "12345",
+                    "type": "string"
+                }
+            }
+        },
+        "Login-Response": {
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+      
+     
+        "Status": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Task": {
+            "required": [
+                "name",
+                "description",
+                "priority",
+                "dueDate"
+            ],
+            "optional": [
+                "status"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                 "priority": {
+                    "type": "integer"
+                    
+                },
+                 "dueDate": {
+                    "type": "string",
+                     "format": "date",
+                    "example": "YYYY-MM-DD"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+       
+    }
+}

@@ -1,0 +1,8 @@
+node_modules
+public/images/
+src/public/images/
+src/public/document/
+package-lock.json
+.env
+.backup.js
+backupfolder
